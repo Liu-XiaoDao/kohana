@@ -20,7 +20,7 @@
  * @copyright  (c) 2008-2012 Kohana Team
  * @license    http://kohanaframework.org/license
  */
-abstract class Kohana_Controller {
+abstract class Kohana_Controller {//控制器顶层父类
 
 	/**
 	 * @var  Request  Request that created the controller
@@ -40,7 +40,7 @@ abstract class Kohana_Controller {
 	 * @param   Response  $response The request's response
 	 * @return  void
 	 */
-	public function __construct(Request $request, Response $response)
+	public function __construct(Request $request, Response $response)//构造方法
 	{
 		// Assign the request to the controller
 		$this->request = $request;
@@ -81,7 +81,7 @@ abstract class Kohana_Controller {
 		}
 
 		// Execute the action itself
-		$this->{$action}();
+		$this->{$action}();//自己使用的方法
 
 		// Execute the "after action" method
 		$this->after();
@@ -96,7 +96,7 @@ abstract class Kohana_Controller {
 	 *
 	 * @return  void
 	 */
-	public function before()
+	public function before()//自己使用方法之前
 	{
 		// Nothing by default
 	}
@@ -108,7 +108,7 @@ abstract class Kohana_Controller {
 	 *
 	 * @return  void
 	 */
-	public function after()
+	public function after()//自己使用方法之后
 	{
 		// Nothing by default
 	}
@@ -122,7 +122,7 @@ abstract class Kohana_Controller {
 	 * @param  int     $code  HTTP Status code to use for the redirect
 	 * @throws HTTP_Exception
 	 */
-	public static function redirect($uri = '', $code = 302)
+	public static function redirect($uri = '', $code = 302)//302重定向
 	{
 		return HTTP::redirect( (string) $uri, $code);
 	}
@@ -137,7 +137,7 @@ abstract class Kohana_Controller {
 	 * @param  string  $etag  Resource Etag
 	 * @return Response
 	 */
-	protected function check_cache($etag = NULL)
+	protected function check_cache($etag = NULL)//缓存
 	{
 		return HTTP::check_cache($this->request, $this->response, $etag);
 	}
