@@ -1,4 +1,4 @@
-<?php defined('SYSPATH') OR die('No direct script access.');
+<?php
 /**
  * Acts as an object wrapper for HTML pages with embedded PHP, called "views".
  * Variables can be assigned with the view object and referenced locally within
@@ -12,8 +12,11 @@
  */
 class Kohana_View {
 
-	// Array of global variables
-	protected static $_global_data = array();
+	/**
+	 * @param mixed[] Array of global variables
+	 * @deprecated
+	 */
+	protected static $_global_data = array();//全局数据
 
 	/**
 	 * Returns a new View object. If you do not define the "file" parameter,
@@ -25,7 +28,7 @@ class Kohana_View {
 	 * @param   array   $data   array of values
 	 * @return  View
 	 */
-	public static function factory($file = NULL, array $data = NULL)
+	public static function factory($file = NULL, array $data = NULL)//工厂方法
 	{
 		return new View($file, $data);
 	}
@@ -42,19 +45,20 @@ class Kohana_View {
 	 * @return  string
 	 * @throws  Exception
 	 */
-	protected static function capture($kohana_view_filename, array $kohana_view_data)
+
+	protected static function capture($kohana_view_filename, array $kohana_view_data)//缓冲
 	{
 		// Import the view variables to local namespace
-		extract($kohana_view_data, EXTR_SKIP);
+		extract($kohana_view_data, EXTR_SKIP);//将数组中的变量,拿出来放到当前空间
 
 		if (View::$_global_data)
 		{
 			// Import the global view variables to local namespace
-			extract(View::$_global_data, EXTR_SKIP | EXTR_REFS);
+			extract(View::$_global_data, EXTR_SKIP | EXTR_REFS);//这个也拿出来
 		}
 
 		// Capture the view output
-		ob_start();
+		ob_start();//开启输出缓冲
 
 		try
 		{
@@ -64,14 +68,14 @@ class Kohana_View {
 		catch (Exception $e)
 		{
 			// Delete the output buffer
-			ob_end_clean();
+			ob_end_clean();//清空缓冲区内容但是不输出
 
 			// Re-throw the exception
 			throw $e;
 		}
 
 		// Get the captured output and close the buffer
-		return ob_get_clean();
+		return ob_get_clean();//返回缓冲区长度
 	}
 
 	/**
@@ -79,6 +83,8 @@ class Kohana_View {
 	 * variable will be accessible to all views.
 	 *
 	 *     View::set_global($name, $value);
+	 * 
+	 * [!!] Use of global view variables is deprecated and strongly discouraged
 	 *
 	 * You can also use an array or Traversable object to set several values at once:
 	 *
@@ -88,11 +94,12 @@ class Kohana_View {
 	 * [!!] Note: When setting with using Traversable object we're not attaching the whole object to the view,
 	 * i.e. the object's standard properties will not be available in the view context.
 	 *
+	 * @deprecated in favour of setting relevant variables on each specific view
 	 * @param   string|array|Traversable  $key    variable name or an array of variables
 	 * @param   mixed                     $value  value
 	 * @return  void
 	 */
-	public static function set_global($key, $value = NULL)
+	public static function set_global($key, $value = NULL)//数据放到全局数据
 	{
 		if (is_array($key) OR $key instanceof Traversable)
 		{
@@ -113,11 +120,14 @@ class Kohana_View {
 	 *
 	 *     View::bind_global($key, $value);
 	 *
+	 * [!!] Use of global view variables is deprecated and strongly discouraged
+	 *
+	 * @deprecated in favour of setting relevant variables on each specific view
 	 * @param   string  $key    variable name
 	 * @param   mixed   $value  referenced variable
 	 * @return  void
 	 */
-	public static function bind_global($key, & $value)
+	public static function bind_global($key, & $value)//绑定到全局数据
 	{
 		View::$_global_data[$key] =& $value;
 	}
@@ -136,9 +146,10 @@ class Kohana_View {
 	 *
 	 * @param   string  $file   view filename
 	 * @param   array   $data   array of values
+	 * @return  void
 	 * @uses    View::set_filename
 	 */
-	public function __construct($file = NULL, array $data = NULL)
+	public function __construct($file = NULL, array $data = NULL)//文件名和数据
 	{
 		if ($file !== NULL)
 		{
@@ -164,7 +175,7 @@ class Kohana_View {
 	 * @return  mixed
 	 * @throws  Kohana_Exception
 	 */
-	public function & __get($key)
+	public function & __get($key)//返回一个数据
 	{
 		if (array_key_exists($key, $this->_data))
 		{
@@ -190,7 +201,7 @@ class Kohana_View {
 	 * @param   mixed   $value  value
 	 * @return  void
 	 */
-	public function __set($key, $value)
+	public function __set($key, $value)//设置数据
 	{
 		$this->set($key, $value);
 	}
@@ -205,7 +216,7 @@ class Kohana_View {
 	 * @param   string  $key    variable name
 	 * @return  boolean
 	 */
-	public function __isset($key)
+	public function __isset($key)//data里是否有这个值,全局数据里是否有
 	{
 		return (isset($this->_data[$key]) OR isset(View::$_global_data[$key]));
 	}
@@ -218,7 +229,7 @@ class Kohana_View {
 	 * @param   string  $key    variable name
 	 * @return  void
 	 */
-	public function __unset($key)
+	public function __unset($key)//移除某个数据
 	{
 		unset($this->_data[$key], View::$_global_data[$key]);
 	}
@@ -229,7 +240,7 @@ class Kohana_View {
 	 * @return  string
 	 * @uses    View::render
 	 */
-	public function __toString()
+	public function __toString()//转成字符串
 	{
 		try
 		{
@@ -258,7 +269,7 @@ class Kohana_View {
 	 * @return  View
 	 * @throws  View_Exception
 	 */
-	public function set_filename($file)
+	public function set_filename($file)//把文件路径保存到对象的file属性
 	{
 		if (($path = Kohana::find_file('views', $file)) === FALSE)
 		{
@@ -292,9 +303,9 @@ class Kohana_View {
 	 * @param   mixed                     $value  value
 	 * @return  $this
 	 */
-	public function set($key, $value = NULL)
+	public function set($key, $value = NULL)//存储数据
 	{
-		if (is_array($key) OR $key instanceof Traversable)
+		if (is_array($key) OR $key instanceof Traversable)//检查是不是一个数组或者能不能遍历
 		{
 			foreach ($key as $name => $value)
 			{
@@ -322,7 +333,7 @@ class Kohana_View {
 	 * @param   mixed   $value  referenced variable
 	 * @return  $this
 	 */
-	public function bind($key, & $value)
+	public function bind($key, & $value)//设置一个数据
 	{
 		$this->_data[$key] =& $value;
 
@@ -343,7 +354,7 @@ class Kohana_View {
 	 * @throws  View_Exception
 	 * @uses    View::capture
 	 */
-	public function render($file = NULL)
+	public function render($file = NULL)//渲染
 	{
 		if ($file !== NULL)
 		{
