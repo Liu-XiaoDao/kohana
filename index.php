@@ -119,3 +119,9 @@ else
 		->send_headers(TRUE)
 		->body();
 }
+
+
+
+
+
+//输出一个view对象时会调用view对象的渲染
