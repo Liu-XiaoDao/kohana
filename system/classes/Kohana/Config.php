@@ -17,10 +17,10 @@
  */
 class Kohana_Config {
 
-	// Configuration readers
+	// Configuration readers//配置阅读者数组
 	protected $_sources = array();
 
-	// Array of config groups
+	// Array of config groups//配置组数组
 	protected $_groups = array();
 
 	/**
@@ -40,16 +40,16 @@ class Kohana_Config {
 		if ($first === TRUE)
 		{
 			// Place the log reader at the top of the stack
-			array_unshift($this->_sources, $source);
+			array_unshift($this->_sources, $source);//值插入到数组头
 		}
 		else
 		{
 			// Place the reader at the bottom of the stack
-			$this->_sources[] = $source;
+			$this->_sources[] = $source;//放入数据
 		}
 
 		// Clear any cached _groups
-		$this->_groups = array();
+		$this->_groups = array();//清除数组组的内容
 
 		return $this;
 	}
@@ -62,7 +62,7 @@ class Kohana_Config {
 	 * @param   Kohana_Config_Source    $source instance
 	 * @return  $this
 	 */
-	public function detach(Kohana_Config_Source $source)
+	public function detach(Kohana_Config_Source $source)//分离(删除)一个配置读者
 	{
 		if (($key = array_search($source, $this->_sources)) !== FALSE)
 		{
@@ -88,32 +88,32 @@ class Kohana_Config {
 	 */
 	public function load($group)
 	{
-		if ( ! count($this->_sources))
+		if ( ! count($this->_sources))//如果没有配置阅读者
 		{
 			throw new Kohana_Exception('No configuration sources attached');
 		}
 
-		if (empty($group))
+		if (empty($group))//参数为空
 		{
 			throw new Kohana_Exception("Need to specify a config group");
 		}
 
-		if ( ! is_string($group))
+		if ( ! is_string($group))//参数不是一个数组
 		{
 			throw new Kohana_Exception("Config group must be a string");
 		}
 
-		if (strpos($group, '.') !== FALSE)
+		if (strpos($group, '.') !== FALSE)//如果有点
 		{
 			// Split the config group and path
-			list($group, $path) = explode('.', $group, 2);
+			list($group, $path) = explode('.', $group, 2);//把参数分成配置数组和路径
 		}
 
-		if (isset($this->_groups[$group]))
+		if (isset($this->_groups[$group]))//如果数组中有,那么返回
 		{
 			if (isset($path))
 			{
-				return Arr::path($this->_groups[$group], $path, NULL, '.');
+				return Arr::path($this->_groups[$group], $path, NULL, '.');//??
 			}
 			return $this->_groups[$group];
 		}
@@ -121,11 +121,11 @@ class Kohana_Config {
 		$config = array();
 
 		// We search from the "lowest" source and work our way up
-		$sources = array_reverse($this->_sources);
+		$sources = array_reverse($this->_sources);//翻转配置阅读者数组
 
 		foreach ($sources as $source)
 		{
-			if ($source instanceof Kohana_Config_Reader)
+			if ($source instanceof Kohana_Config_Reader)//一个对象是否是谁的实例
 			{
 				if ($source_config = $source->load($group))
 				{
@@ -134,9 +134,9 @@ class Kohana_Config {
 			}
 		}
 
-		$this->_groups[$group] = new Config_Group($this, $group, $config);
+		$this->_groups[$group] = new Config_Group($this, $group, $config);//如果配置组数组里面没有,先找到后放到配置组数组
 
-		if (isset($path))
+		if (isset($path))///??
 		{
 			return Arr::path($config, $path, NULL, '.');
 		}
@@ -152,7 +152,7 @@ class Kohana_Config {
 	 * @param   string  $group  configuration group name
 	 * @return  $this
 	 */
-	public function copy($group)
+	public function copy($group)//拷贝什么的??
 	{
 		// Load the configuration group
 		$config = $this->load($group);
@@ -173,7 +173,7 @@ class Kohana_Config {
 	 * @param mixed     $value  The new value
 	 * @return Kohana_Config Chainable instance
 	 */
-	public function _write_config($group, $key, $value)
+	public function _write_config($group, $key, $value)//写配置什么的
 	{
 		foreach ($this->_sources as $source)
 		{
