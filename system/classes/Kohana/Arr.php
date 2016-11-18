@@ -13,7 +13,7 @@ class Kohana_Arr {
 	/**
 	 * @var  string  default delimiter for path()
 	 */
-	public static $delimiter = '.';
+	public static $delimiter = '.';//分隔符
 
 	/**
 	 * Tests if an array is associative or not.
@@ -27,10 +27,10 @@ class Kohana_Arr {
 	 * @param   array   $array  array to check
 	 * @return  boolean
 	 */
-	public static function is_assoc(array $array)
+	public static function is_assoc(array $array)//看一个数组是否为一个关联数组
 	{
 		// Keys of the array
-		$keys = array_keys($array);
+		$keys = array_keys($array);//拿出一个数组中的所有键名
 
 		// If the array keys of the keys match the keys, then the array must
 		// not be associative (e.g. the keys array looked like {0:0, 1:1...}).
@@ -52,7 +52,7 @@ class Kohana_Arr {
 	 * @param   mixed   $value  value to check
 	 * @return  boolean
 	 */
-	public static function is_array($value)
+	public static function is_array($value)//检测是否为数组,是数组返回true,不是数组检测检测是不是对象,并且能否遍历
 	{
 		if (is_array($value))
 		{
@@ -86,22 +86,22 @@ class Kohana_Arr {
 	 * @param   string  $delimiter  key path delimiter
 	 * @return  mixed
 	 */
-	public static function path($array, $path, $default = NULL, $delimiter = NULL)
+	public static function path($array, $path, $default = NULL, $delimiter = NULL)//具体算法不管,从一个数组中取出想要的值
 	{
 		if ( ! Arr::is_array($array))
 		{
 			// This is not an array!
-			return $default;
+			return $default;//不是数组,返回默认
 		}
 
-		if (is_array($path))
+		if (is_array($path))//如果path是数组则赋给keys
 		{
 			// The path has already been separated into keys
 			$keys = $path;
 		}
 		else
 		{
-			if (array_key_exists($path, $array))
+			if (array_key_exists($path, $array))//检测路径是否是数组的一个键
 			{
 				// No need to do extra processing
 				return $array[$path];
@@ -110,7 +110,7 @@ class Kohana_Arr {
 			if ($delimiter === NULL)
 			{
 				// Use the default delimiter
-				$delimiter = Arr::$delimiter;
+				$delimiter = Arr::$delimiter;//分割符用.(点)
 			}
 
 			// Remove starting delimiters and spaces
@@ -120,20 +120,20 @@ class Kohana_Arr {
 			$path = rtrim($path, "{$delimiter} *");
 
 			// Split the keys by delimiter
-			$keys = explode($delimiter, $path);
+			$keys = explode($delimiter, $path);//把想取出的用点拼起来的变量在取出来
 		}
 
 		do
 		{
-			$key = array_shift($keys);
+			$key = array_shift($keys);//删除第一个元素并返回
 
-			if (ctype_digit($key))
+			if (ctype_digit($key))//如果是数字转成int型
 			{
 				// Make the key an integer
 				$key = (int) $key;
 			}
 
-			if (isset($array[$key]))
+			if (isset($array[$key]))//寻找的变量是否在数组里
 			{
 				if ($keys)
 				{
@@ -199,7 +199,7 @@ class Kohana_Arr {
 	* @param mixed   $value     Value to set
 	* @param string  $delimiter Path delimiter
 	*/
-	public static function set_path( & $array, $path, $value, $delimiter = NULL)
+	public static function set_path( & $array, $path, $value, $delimiter = NULL)//往数组中放入值
 	{
 		if ( ! $delimiter)
 		{
@@ -248,7 +248,7 @@ class Kohana_Arr {
 	 * @param   integer $max    ending number
 	 * @return  array
 	 */
-	public static function range($step = 10, $max = 100)
+	public static function range($step = 10, $max = 100)//数组填充值
 	{
 		if ($step < 1)
 			return array();
@@ -277,7 +277,7 @@ class Kohana_Arr {
 	 * @param   mixed   $default    default value
 	 * @return  mixed
 	 */
-	public static function get($array, $key, $default = NULL)
+	public static function get($array, $key, $default = NULL)//从数组中取出值,但是不指定路径了,只在最浅层找
 	{
 		if ($array instanceof ArrayObject) {
 			// This is a workaround for inconsistent implementation of isset between PHP and HHVM
@@ -304,7 +304,7 @@ class Kohana_Arr {
 	 * @param   mixed  $default  default value
 	 * @return  array
 	 */
-	public static function extract($array, array $paths, $default = NULL)
+	public static function extract($array, array $paths, $default = NULL)//也是从数组中拿数据,用数组阻止路径
 	{
 		$found = array();
 		foreach ($paths as $path)
@@ -327,7 +327,7 @@ class Kohana_Arr {
 	 * @param   string  $key    key to pluck
 	 * @return  array
 	 */
-	public static function pluck($array, $key)
+	public static function pluck($array, $key)//遍历数组的第一层,在第一层中寻找key
 	{
 		$values = array();
 
@@ -354,7 +354,7 @@ class Kohana_Arr {
 	 * @param   mixed   $val    array value
 	 * @return  array
 	 */
-	public static function unshift( array & $array, $key, $val)
+	public static function unshift( array & $array, $key, $val)//指定键名数据,向数组中插入数据,但是不知道为什么翻转
 	{
 		$array = array_reverse($array, TRUE);
 		$array[$key] = $val;
@@ -387,7 +387,7 @@ class Kohana_Arr {
 	 * @param   array   $keys       array of keys to apply to
 	 * @return  array
 	 */
-	public static function map($callbacks, $array, $keys = NULL)
+	public static function map($callbacks, $array, $keys = NULL)//先不看,就是一些功能函数,不影响其他
 	{
 		foreach ($array as $key => $val)
 		{
@@ -434,7 +434,7 @@ class Kohana_Arr {
 	 * @param   array  $array2,...  array to merge
 	 * @return  array
 	 */
-	public static function merge($array1, $array2)
+	public static function merge($array1, $array2)//合并数组
 	{
 		if (Arr::is_assoc($array2))
 		{
@@ -464,9 +464,9 @@ class Kohana_Arr {
 			}
 		}
 
-		if (func_num_args() > 2)
+		if (func_num_args() > 2)//如果大于两个参数
 		{
-			foreach (array_slice(func_get_args(), 2) as $array2)
+			foreach (array_slice(func_get_args(), 2) as $array2)//func_get_args返回参数数组,array_slice返回一个数组从第三个开始
 			{
 				if (Arr::is_assoc($array2))
 				{
@@ -518,7 +518,7 @@ class Kohana_Arr {
 	 * @param   array   $array2 input arrays that will overwrite existing values
 	 * @return  array
 	 */
-	public static function overwrite($array1, $array2)
+	public static function overwrite($array1, $array2)//??原本就有,再次放进去有什么用
 	{
 		foreach (array_intersect_key($array2, $array1) as $key => $value)
 		{
@@ -602,7 +602,7 @@ class Kohana_Arr {
 	 * @return  array
 	 * @since   3.0.6
 	 */
-	public static function flatten($array)
+	public static function flatten($array)//多维数组,解析成一维
 	{
 		$is_assoc = Arr::is_assoc($array);
 
