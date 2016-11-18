@@ -11,7 +11,7 @@
 class Kohana_Date {
 
 	// Second amounts for various time increments
-	const YEAR   = 31556926;
+	const YEAR   = 31556926;//常量一年的秒数
 	const MONTH  = 2629744;
 	const WEEK   = 604800;
 	const DAY    = 86400;
@@ -19,21 +19,21 @@ class Kohana_Date {
 	const MINUTE = 60;
 
 	// Available formats for Date::months()
-	const MONTHS_LONG  = '%B';
+	const MONTHS_LONG  = '%B';//分钟可用格式
 	const MONTHS_SHORT = '%b';
 
 	/**
 	 * Default timestamp format for formatted_time
 	 * @var  string
 	 */
-	public static $timestamp_format = 'Y-m-d H:i:s';
+	public static $timestamp_format = 'Y-m-d H:i:s';//默认时间格式
 
 	/**
 	 * Timezone for formatted_time
 	 * @link http://uk2.php.net/manual/en/timezones.php
 	 * @var  string
 	 */
-	public static $timezone;
+	public static $timezone;//时区
 
 	/**
 	 * Returns the offset (in seconds) between two time zones. Use this to
