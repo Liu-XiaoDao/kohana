@@ -19,7 +19,7 @@ abstract class Kohana_HTTP {
 	/**
 	 * @var  The default protocol to use if it cannot be detected
 	 */
-	public static $protocol = 'HTTP/1.1';
+	public static $protocol = 'HTTP/1.1';//协议
 
 	/**
 	 * Issues a HTTP redirect.
@@ -28,7 +28,7 @@ abstract class Kohana_HTTP {
 	 * @param  int       $code      HTTP Status code to use for the redirect
 	 * @throws HTTP_Exception
 	 */
-	public static function redirect($uri = '', $code = 302)
+	public static function redirect($uri = '', $code = 302)//跳转
 	{
 		$e = HTTP_Exception::factory($code);
 

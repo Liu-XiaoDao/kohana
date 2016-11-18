@@ -13,7 +13,7 @@ class Kohana_Kohana_Exception extends Exception {
 	/**
 	 * @var  array  PHP error code => human readable name
 	 */
-	public static $php_errors = array(
+	public static $php_errors = array(//一些错误等级
 		E_ERROR              => 'Fatal Error',
 		E_USER_ERROR         => 'User Error',
 		E_PARSE              => 'Parse Error',
@@ -28,12 +28,12 @@ class Kohana_Kohana_Exception extends Exception {
 	/**
 	 * @var  string  error rendering view
 	 */
-	public static $error_view = 'kohana/error';
+	public static $error_view = 'kohana/error';//错误页面
 
 	/**
 	 * @var  string  error view content type
 	 */
-	public static $error_view_content_type = 'text/html';
+	public static $error_view_content_type = 'text/html';//错误页面类型
 
 	/**
 	 * Creates a new translated exception.
