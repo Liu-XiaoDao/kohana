@@ -3,9 +3,9 @@
 // -- Environment setup --------------------------------------------------------
 
 // Load the core Kohana class
-require SYSPATH.'classes/Kohana/Core'.EXT;//核心类
+require SYSPATH.'classes/Kohana/Core'.EXT;//导入core.php---未看
 
-if (is_file(APPPATH.'classes/Kohana'.EXT))
+if (is_file(APPPATH.'classes/Kohana'.EXT))//导入application下面的kohana,如果没有导入system下的---未看
 {
 	// Application extends the core
 	require APPPATH.'classes/Kohana'.EXT;
@@ -22,7 +22,7 @@ else
  * @link http://kohanaframework.org/guide/using.configuration
  * @link http://www.php.net/manual/timezones
  */
-date_default_timezone_set('America/Chicago');//时区设置
+date_default_timezone_set('America/Chicago');//设置时区为芝加哥
 
 /**
  * Set the default locale.
@@ -30,7 +30,7 @@ date_default_timezone_set('America/Chicago');//时区设置
  * @link http://kohanaframework.org/guide/using.configuration
  * @link http://www.php.net/manual/function.setlocale
  */
-setlocale(LC_ALL, 'en_US.utf-8');//地区设置
+setlocale(LC_ALL, 'en_US.utf-8');//设置地区
 
 /**
  * Enable the Kohana auto-loader.
@@ -38,7 +38,7 @@ setlocale(LC_ALL, 'en_US.utf-8');//地区设置
  * @link http://kohanaframework.org/guide/using.autoloading
  * @link http://www.php.net/manual/function.spl-autoload-register
  */
-spl_autoload_register(array('Kohana', 'auto_load'));//自动加载找他
+spl_autoload_register(array('Kohana', 'auto_load'));
 
 /**
  * Optionally, you can enable a compatibility auto-loader for use with
@@ -54,21 +54,21 @@ spl_autoload_register(array('Kohana', 'auto_load'));//自动加载找他
  * @link http://www.php.net/manual/function.spl-autoload-call
  * @link http://www.php.net/manual/var.configuration#unserialize-callback-func
  */
-ini_set('unserialize_callback_func', 'spl_autoload_call');//?
+ini_set('unserialize_callback_func', 'spl_autoload_call');
 
 /**
  * Set the mb_substitute_character to "none"
  *
  * @link http://www.php.net/manual/function.mb-substitute-character.php
  */
-mb_substitute_character('none');//??
+mb_substitute_character('none');
 
 // -- Configuration and initialization -----------------------------------------
 
 /**
  * Set the default language
  */
-I18n::lang('en-us');//国际化
+I18n::lang('en-us');
 
 if (isset($_SERVER['SERVER_PROTOCOL']))
 {
