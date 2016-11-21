@@ -15,20 +15,20 @@ abstract class Kohana_Log_Writer {
 	 *
 	 * Defaults to Date::$timestamp_format
 	 */
-	public static $timestamp;
+	public static $timestamp;//日志时间戳
 
 	/**
 	 * @var  string  timezone for log entries
 	 *
 	 * Defaults to Date::$timezone, which defaults to date_default_timezone_get()
 	 */
-	public static $timezone;
+	public static $timezone;//时区
 
 	/**
 	 * Numeric log level to string lookup table.
 	 * @var array
 	 */
-	protected $_log_levels = array(
+	protected $_log_levels = array(//日志级别
 		LOG_EMERG   => 'EMERGENCY',
 		LOG_ALERT   => 'ALERT',
 		LOG_CRIT    => 'CRITICAL',
@@ -63,7 +63,7 @@ abstract class Kohana_Log_Writer {
 	 */
 	final public function __toString()
 	{
-		return spl_object_hash($this);
+    return spl_object_hash($this);//返回对象hash`
 	}
 
 	/**
@@ -73,6 +73,7 @@ abstract class Kohana_Log_Writer {
 	 * @param   string  $format
 	 * @return  string
 	 */
+	//把消息格式化
 	public function format_message(array $message, $format = "time --- level: body in file:line")
 	{
 		$message['time'] = Date::formatted_time('@'.$message['time'], Log_Writer::$timestamp, Log_Writer::$timezone, TRUE);

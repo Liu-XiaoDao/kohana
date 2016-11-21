@@ -11,4 +11,4 @@
  * @license    http://kohanaframework.org/license
  */
 
-interface Kohana_Config_Source {}
+interface Kohana_Config_Source {}//接口，配置源

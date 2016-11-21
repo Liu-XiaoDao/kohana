@@ -13,9 +13,9 @@
 class Kohana_Log {
 
 	// Log message levels - Windows users see PHP Bug #18090
-	const EMERGENCY = LOG_EMERG;    // 0
-	const ALERT     = LOG_ALERT;    // 1
-	const CRITICAL  = LOG_CRIT;     // 2
+	const EMERGENCY = LOG_EMERG;    // 0//错误等级紧急
+	const ALERT     = LOG_ALERT;    // 1警惕
+	const CRITICAL  = LOG_CRIT;     // 2关键的
 	const ERROR     = LOG_ERR;      // 3
 	const WARNING   = LOG_WARNING;  // 4
 	const NOTICE    = LOG_NOTICE;   // 5
@@ -25,12 +25,12 @@ class Kohana_Log {
 	/**
 	 * @var  boolean  immediately write when logs are added
 	 */
-	public static $write_on_add = FALSE;
+	public static $write_on_add = FALSE;//日志添加时是否立即写入
 
 	/**
 	 * @var  Log  Singleton instance container
 	 */
-	protected static $_instance;
+	protected static $_instance;//单例
 
 	/**
 	 * Get the singleton instance of this class and enable writing at shutdown.

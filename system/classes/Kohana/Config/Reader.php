@@ -9,7 +9,7 @@
  * @copyright  (c) 2008-2012 Kohana Team
  * @license    http://kohanaframework.org/license
  */
-interface Kohana_Config_Reader extends Kohana_Config_Source
+interface Kohana_Config_Reader extends Kohana_Config_Source//接口，阅读者
 {
 
 	/**

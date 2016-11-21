@@ -98,7 +98,7 @@ class Kohana_Config {
 			throw new Kohana_Exception("Need to specify a config group");
 		}
 
-		if ( ! is_string($group))//参数不是一个数组
+		if ( ! is_string($group))//参数不是一个字符串
 		{
 			throw new Kohana_Exception("Config group must be a string");
 		}

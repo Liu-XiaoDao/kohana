@@ -9,7 +9,7 @@
  * @copyright  (c) 2009-2012 Kohana Team
  * @license    http://kohanaframework.org/license
  */
-class Kohana_Config_File extends Kohana_Config_File_Reader
+class Kohana_Config_File extends Kohana_Config_File_Reader//不知到为什么继承这么多次
 {
 	// @see Kohana_Config_File_Reader
 }

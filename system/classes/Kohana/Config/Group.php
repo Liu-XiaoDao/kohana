@@ -14,21 +14,21 @@
  * @copyright  (c) 2012-2014 Kohana Team
  * @license    http://kohanaframework.org/license
  */
-class Kohana_Config_Group extends ArrayObject {
+class Kohana_Config_Group extends ArrayObject {//继承系统类
 
 	/**
 	 * Reference the config object that created this group
 	 * Used when updating config
 	 * @var Kohana_Config
 	 */
-	protected $_parent_instance = NULL;
+	protected $_parent_instance = NULL;//父类实例
 
 	/**
 	 * The group this config is for
 	 * Used when updating config items
 	 * @var string
 	 */
-	protected $_group_name = '';
+	protected $_group_name = '';//组名
 
 	/**
 	 * Constructs the group object.  Kohana_Config passes the config group
@@ -55,7 +55,7 @@ class Kohana_Config_Group extends ArrayObject {
 	 */
 	public function __toString()
 	{
-		return serialize($this->getArrayCopy());
+		return serialize($this->getArrayCopy());//序列化
 	}
 
 	/**
@@ -63,7 +63,7 @@ class Kohana_Config_Group extends ArrayObject {
 	 *
 	 * @return array Array copy of the group's config
 	 */
-	public function as_array()
+	public function as_array()//数组
 	{
 		return $this->getArrayCopy();
 	}
@@ -73,7 +73,7 @@ class Kohana_Config_Group extends ArrayObject {
 	 *
 	 * @return string The group name
 	 */
-	public function group_name()
+	public function group_name()//返回数组名
 	{
 		return $this->_group_name;
 	}
@@ -87,7 +87,7 @@ class Kohana_Config_Group extends ArrayObject {
 	 * @param   mixed   $default    default value
 	 * @return  mixed
 	 */
-	public function get($key, $default = NULL)
+	public function get($key, $default = NULL)//取值
 	{
 		return $this->offsetExists($key) ? $this->offsetGet($key) : $default;
 	}
@@ -101,7 +101,7 @@ class Kohana_Config_Group extends ArrayObject {
 	 * @param   mixed   $value  array value
 	 * @return  $this
 	 */
-	public function set($key, $value)
+	public function set($key, $value)//设置
 	{
 		$this->offsetSet($key, $value);
 
@@ -121,9 +121,9 @@ class Kohana_Config_Group extends ArrayObject {
 	 * @param string $key   The key of the config item we're changing
 	 * @param mixed  $value The new array value
 	 */
-	public function offsetSet($key, $value)
+	public function offsetSet($key, $value)//？？
 	{
-		$this->_parent_instance->_write_config($this->_group_name, $key, $value);
+		$this->_parent_instance->_write_config($this->_group_name, $key, $value);//可能是向配置文件中写东西
 
 		return parent::offsetSet($key, $value);
 	}
