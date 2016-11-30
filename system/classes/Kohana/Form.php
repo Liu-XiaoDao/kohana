@@ -32,7 +32,8 @@ class Kohana_Form {
 	 * @uses    URL::site
 	 * @uses    HTML::attributes
 	 */
-	public static function open($action = NULL, array $attributes = NULL)
+	//这个地方一般是url
+	public static function open($action = NULL, array $attributes = NULL)//表单头
 	{
 		if ($action instanceof Request)
 		{
@@ -90,7 +91,7 @@ class Kohana_Form {
 	 * @return  string
 	 * @uses    HTML::attributes
 	 */
-	public static function input($name, $value = NULL, array $attributes = NULL)
+	public static function input($name, $value = NULL, array $attributes = NULL)//表单
 	{
 		// Set the input name
 		$attributes['name'] = $name;
@@ -118,7 +119,7 @@ class Kohana_Form {
 	 * @return  string
 	 * @uses    Form::input
 	 */
-	public static function hidden($name, $value = NULL, array $attributes = NULL)
+	public static function hidden($name, $value = NULL, array $attributes = NULL)//表单
 	{
 		$attributes['type'] = 'hidden';
 
@@ -136,7 +137,7 @@ class Kohana_Form {
 	 * @return  string
 	 * @uses    Form::input
 	 */
-	public static function password($name, $value = NULL, array $attributes = NULL)
+	public static function password($name, $value = NULL, array $attributes = NULL)//密码
 	{
 		$attributes['type'] = 'password';
 
@@ -153,7 +154,7 @@ class Kohana_Form {
 	 * @return  string
 	 * @uses    Form::input
 	 */
-	public static function file($name, array $attributes = NULL)
+	public static function file($name, array $attributes = NULL)//文件
 	{
 		$attributes['type'] = 'file';
 
@@ -172,7 +173,7 @@ class Kohana_Form {
 	 * @return  string
 	 * @uses    Form::input
 	 */
-	public static function checkbox($name, $value = NULL, $checked = FALSE, array $attributes = NULL)
+	public static function checkbox($name, $value = NULL, $checked = FALSE, array $attributes = NULL)//多选
 	{
 		$attributes['type'] = 'checkbox';
 
@@ -198,7 +199,7 @@ class Kohana_Form {
 	 * @return  string
 	 * @uses    Form::input
 	 */
-	public static function radio($name, $value = NULL, $checked = FALSE, array $attributes = NULL)
+	public static function radio($name, $value = NULL, $checked = FALSE, array $attributes = NULL)//单选
 	{
 		$attributes['type'] = 'radio';
 
@@ -351,7 +352,7 @@ class Kohana_Form {
 	 * @return  string
 	 * @uses    Form::input
 	 */
-	public static function submit($name, $value, array $attributes = NULL)
+	public static function submit($name, $value, array $attributes = NULL)//submit
 	{
 		$attributes['type'] = 'submit';
 
@@ -370,7 +371,7 @@ class Kohana_Form {
 	 * @return  string
 	 * @uses    Form::input
 	 */
-	public static function image($name, $value, array $attributes = NULL, $index = FALSE)
+	public static function image($name, $value, array $attributes = NULL, $index = FALSE)//image
 	{
 		if ( ! empty($attributes['src']))
 		{
@@ -398,7 +399,7 @@ class Kohana_Form {
 	 * @return  string
 	 * @uses    HTML::attributes
 	 */
-	public static function button($name, $body, array $attributes = NULL)
+	public static function button($name, $body, array $attributes = NULL)//button
 	{
 		// Set the input name
 		$attributes['name'] = $name;

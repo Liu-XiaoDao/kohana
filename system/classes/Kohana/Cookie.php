@@ -13,12 +13,12 @@ class Kohana_Cookie {
 	/**
 	 * @var  string  Magic salt to add to the cookie
 	 */
-	public static $salt = NULL;
+	public static $salt = NULL;//盐？
 
 	/**
 	 * @var  integer  Number of seconds before the cookie expires
 	 */
-	public static $expiration = 0;
+	public static $expiration = 0;//过期时间吧
 
 	/**
 	 * @var  string  Restrict the path that the cookie is available to
