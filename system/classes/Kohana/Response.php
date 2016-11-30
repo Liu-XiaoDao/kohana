@@ -31,7 +31,7 @@ class Kohana_Response implements HTTP_Response {
 		return new Response($config);
 	}
 
-	// HTTP status codes and messages
+	// HTTP status codes and messages  状态码与状态信息
 	public static $messages = array(
 		// Informational 1xx
 		100 => 'Continue',
@@ -87,27 +87,27 @@ class Kohana_Response implements HTTP_Response {
 	);
 
 	/**
-	 * @var  integer     The response http status
+	 * @var  integer     The response http status   默认状态200
 	 */
 	protected $_status = 200;
 
 	/**
-	 * @var  HTTP_Header  Headers returned in the response
+	 * @var  HTTP_Header  Headers returned in the response  响应头
 	 */
 	protected $_header;
 
 	/**
-	 * @var  string      The response body
+	 * @var  string      The response body  响应题
 	 */
 	protected $_body = '';
 
 	/**
-	 * @var  array       Cookies to be returned in the response
+	 * @var  array       Cookies to be returned in the response  返回的cookie
 	 */
 	protected $_cookies = array();
 
 	/**
-	 * @var  string      The response protocol
+	 * @var  string      The response protocol   响应的协议
 	 */
 	protected $_protocol;
 
@@ -117,13 +117,13 @@ class Kohana_Response implements HTTP_Response {
 	 * @param   array $config Setup the response object
 	 * @return  void
 	 */
-	public function __construct(array $config = array())
+	public function __construct(array $config = array())//构造方法
 	{
 		$this->_header = new HTTP_Header;
 
 		foreach ($config as $key => $value)
 		{
-			if (property_exists($this, $key))
+			if (property_exists($this, $key))  //检查自身是否有这个属性
 			{
 				if ($key == '_header')
 				{
@@ -142,7 +142,7 @@ class Kohana_Response implements HTTP_Response {
 	 *
 	 * @return string
 	 */
-	public function __toString()
+	public function __toString()//输出这个对象时,返回body
 	{
 		return $this->_body;
 	}
@@ -152,7 +152,7 @@ class Kohana_Response implements HTTP_Response {
 	 *
 	 * @return  mixed
 	 */
-	public function body($content = NULL)
+	public function body($content = NULL)//设置响应体
 	{
 		if ($content === NULL)
 			return $this->_body;
@@ -168,7 +168,7 @@ class Kohana_Response implements HTTP_Response {
 	 * @param   string   $protocol Protocol to set to the request/response
 	 * @return  mixed
 	 */
-	public function protocol($protocol = NULL)
+	public function protocol($protocol = NULL)//设置/返回HTTP协议
 	{
 		if ($protocol)
 		{
@@ -197,7 +197,7 @@ class Kohana_Response implements HTTP_Response {
 	 * @param   integer  $status Status to set to this response
 	 * @return  mixed
 	 */
-	public function status($status = NULL)
+	public function status($status = NULL)//状态
 	{
 		if ($status === NULL)
 		{
@@ -235,7 +235,7 @@ class Kohana_Response implements HTTP_Response {
 	 * @param string $value
 	 * @return mixed
 	 */
-	public function headers($key = NULL, $value = NULL)
+	public function headers($key = NULL, $value = NULL)//header
 	{
 		if ($key === NULL)
 		{
@@ -263,7 +263,7 @@ class Kohana_Response implements HTTP_Response {
 	 *
 	 * @return  integer
 	 */
-	public function content_length()
+	public function content_length()//返回body的长度
 	{
 		return strlen($this->body());
 	}
@@ -286,7 +286,7 @@ class Kohana_Response implements HTTP_Response {
 	 * @return  void
 	 * @return  [Response]
 	 */
-	public function cookie($key = NULL, $value = NULL)
+	public function cookie($key = NULL, $value = NULL)//设置取了什么什么的
 	{
 		// Handle the get cookie calls
 		if ($key === NULL)
@@ -329,7 +329,7 @@ class Kohana_Response implements HTTP_Response {
 	 * @param   string  $name
 	 * @return  Response
 	 */
-	public function delete_cookie($name)
+	public function delete_cookie($name)//删除cookie
 	{
 		unset($this->_cookies[$name]);
 		return $this;
@@ -340,7 +340,7 @@ class Kohana_Response implements HTTP_Response {
 	 *
 	 * @return  Response
 	 */
-	public function delete_cookies()
+	public function delete_cookies()//删除所有cookie
 	{
 		$this->_cookies = array();
 		return $this;
@@ -353,7 +353,7 @@ class Kohana_Response implements HTTP_Response {
 	 * @param   callback    $callback   function to handle header output
 	 * @return  mixed
 	 */
-	public function send_headers($replace = FALSE, $callback = NULL)
+	public function send_headers($replace = FALSE, $callback = NULL)//这个需要看header类
 	{
 		return $this->_header->send_headers($this, $replace, $callback);
 	}
@@ -390,9 +390,9 @@ class Kohana_Response implements HTTP_Response {
 	 * @uses    File::mime
 	 * @uses    Request::send_headers
 	 */
-	public function send_file($filename, $download = NULL, array $options = NULL)
+	public function send_file($filename, $download = NULL, array $options = NULL)//返回文件,可能是下载时用的    filename可能是目录
 	{
-		if ( ! empty($options['mime_type']))
+		if ( ! empty($options['mime_type']))//设置返回的类型
 		{
 			// The mime-type has been manually set
 			$mime = $options['mime_type'];
@@ -400,18 +400,18 @@ class Kohana_Response implements HTTP_Response {
 
 		if ($filename === TRUE)
 		{
-			if (empty($download))
+			if (empty($download))//没写下载的文件名
 			{
 				throw new Kohana_Exception('Download name must be provided for streaming files');
 			}
 
 			// Temporary files will automatically be deleted
-			$options['delete'] = FALSE;
+			$options['delete'] = FALSE;//不删除
 
 			if ( ! isset($mime))
 			{
 				// Guess the mime using the file extension
-				$mime = File::mime_by_ext(strtolower(pathinfo($download, PATHINFO_EXTENSION)));
+				$mime = File::mime_by_ext(strtolower(pathinfo($download, PATHINFO_EXTENSION)));//应该是拿到扩展名类型什么的
 			}
 
 			// Force the data to be rendered if
@@ -432,28 +432,28 @@ class Kohana_Response implements HTTP_Response {
 		else
 		{
 			// Get the complete file path
-			$filename = realpath($filename);
+			$filename = realpath($filename);//返回绝对路径
 
 			if (empty($download))
 			{
 				// Use the file name as the download file name
-				$download = pathinfo($filename, PATHINFO_BASENAME);
+				$download = pathinfo($filename, PATHINFO_BASENAME);//返回路径中关于文件名的部分
 			}
 
 			// Get the file size
-			$size = filesize($filename);
+			$size = filesize($filename);//拿到文件的大小
 
 			if ( ! isset($mime))
 			{
 				// Get the mime type from the extension of the download file
-				$mime = File::mime_by_ext(pathinfo($download, PATHINFO_EXTENSION));
+				$mime = File::mime_by_ext(pathinfo($download, PATHINFO_EXTENSION));//拿到文件的类型
 			}
 
 			// Open the file for reading
-			$file = fopen($filename, 'rb');
+			$file = fopen($filename, 'rb');//打开文件
 		}
 
-		if ( ! is_resource($file))
+		if ( ! is_resource($file))//没有打开文件
 		{
 			throw new Kohana_Exception('Could not read file to send: :file', array(
 				':file' => $download,
@@ -461,10 +461,10 @@ class Kohana_Response implements HTTP_Response {
 		}
 
 		// Inline or download?
-		$disposition = empty($options['inline']) ? 'attachment' : 'inline';
+		$disposition = empty($options['inline']) ? 'attachment' : 'inline';//内联或下载???
 
-		// Calculate byte range to download.
-		list($start, $end) = $this->_calculate_byte_range($size);
+		// Calculate byte range to download.   计算字节范围下载。
+		list($start, $end) = $this->_calculate_byte_range($size);  //??
 
 		if ( ! empty($options['resumable']))
 		{
