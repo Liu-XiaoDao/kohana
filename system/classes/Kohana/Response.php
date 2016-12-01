@@ -503,27 +503,27 @@ class Kohana_Response implements HTTP_Response {
 		// Send all headers now
 		$this->send_headers();
 
-		while (ob_get_level())
+		while (ob_get_level())//输出缓存
 		{
 			// Flush all output buffers
-			ob_end_flush();
+			ob_end_flush();   //输出缓冲区内容并关闭缓冲区
 		}
 
 		// Manually stop execution
-		ignore_user_abort(TRUE);
+		ignore_user_abort(TRUE);//断开连接,不影响脚本的继续执行
 
-		if ( ! Kohana::$safe_mode)
+		if ( ! Kohana::$safe_mode)//??
 		{
 			// Keep the script running forever
-			set_time_limit(0);
+			set_time_limit(0);//遇到该函数直接
 		}
 
 		// Send data in 16kb blocks
-		$block = 1024 * 16;
+		$block = 1024 * 16;//每次发送16kb
 
-		fseek($file, $start);
+		fseek($file, $start);//在文件中定位指针
 
-		while ( ! feof($file) AND ($pos = ftell($file)) <= $end)
+		while ( ! feof($file) AND ($pos = ftell($file)) <= $end)//feof测试文件指针是否到了文件结尾,ftell文件指针的读写位置
 		{
 			if (connection_aborted())
 				break;
@@ -549,7 +549,7 @@ class Kohana_Response implements HTTP_Response {
 			try
 			{
 				// Attempt to remove the file
-				unlink($filename);
+				unlink($filename);//删除文件
 			}
 			catch (Exception $e)
 			{
@@ -582,7 +582,7 @@ class Kohana_Response implements HTTP_Response {
 	 *
 	 * @return  string
 	 */
-	public function render()
+	public function render()//生成一个响应
 	{
 		if ( ! $this->_header->offsetExists('content-type'))
 		{
@@ -639,7 +639,7 @@ class Kohana_Response implements HTTP_Response {
 	 * @throws Request_Exception
 	 * @return String Generated ETag
 	 */
-	public function generate_etag()
+	public function generate_etag()//返回经过sha1计算的响应
 	{
 	    if ($this->_body === '')
 		{
@@ -657,7 +657,7 @@ class Kohana_Response implements HTTP_Response {
 	 * @link   http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.35
 	 * @return array|FALSE
 	 */
-	protected function _parse_byte_range()
+	protected function _parse_byte_range()///下载...
 	{
 		if ( ! isset($_SERVER['HTTP_RANGE']))
 		{
@@ -677,7 +677,7 @@ class Kohana_Response implements HTTP_Response {
 	 * @param  integer $size
 	 * @return array
 	 */
-	protected function _calculate_byte_range($size)
+	protected function _calculate_byte_range($size)//下载文件用的
 	{
 		// Defaults to start with when the HTTP_RANGE header doesn't exist.
 		$start = 0;
