@@ -11,7 +11,7 @@
  * @license    http://kohanaframework.org/license
  * @since      3.1.0
  */
-abstract class Kohana_Request_Client {
+abstract class Kohana_Request_Client {//
 
 	/**
 	 * @var    Cache  Caching library for request caching
@@ -31,29 +31,29 @@ abstract class Kohana_Request_Client {
 	/**
 	 * @var  bool  Follow 302 redirect with original request method?
 	 */
-	protected $_strict_redirect = TRUE;
+	protected $_strict_redirect = TRUE;//严格重定向??
 
 	/**
 	 * @var array  Callbacks to use when response contains given headers
 	 */
-	protected $_header_callbacks = array(
+	protected $_header_callbacks = array( ///头回调?
 		'Location'  => 'Request_Client::on_header_location'
 	);
 
 	/**
 	 * @var int  Maximum number of requests that header callbacks can trigger before the request is aborted
 	 */
-	protected $_max_callback_depth = 5;
+	protected $_max_callback_depth = 5;//回调最大数量
 
 	/**
 	 * @var int  Tracks the callback depth of the currently executing request
 	 */
-	protected $_callback_depth = 1;
+	protected $_callback_depth = 1;//回调深度
 
 	/**
 	 * @var array  Arbitrary parameters that are shared with header callbacks through their Request_Client object
 	 */
-	protected $_callback_params = array();
+	protected $_callback_params = array();//回调参数
 
 	/**
 	 * Creates a new `Request_Client` object,
@@ -63,9 +63,9 @@ abstract class Kohana_Request_Client {
 	 */
 	public function __construct(array $params = array())
 	{
-		foreach ($params as $key => $value)
+		foreach ($params as $key => $value)//传来的参数是方法名加参数
 		{
-			if (method_exists($this, $key))
+			if (method_exists($this, $key))//调用方法
 			{
 				$this->$key($value);
 			}
@@ -182,7 +182,7 @@ abstract class Kohana_Request_Client {
 	 * @return  bool
 	 * @return  Request_Client
 	 */
-	public function follow($follow = NULL)
+	public function follow($follow = NULL)//有值就赋值,没有就取值
 	{
 		if ($follow === NULL)
 			return $this->_follow;
@@ -205,7 +205,7 @@ abstract class Kohana_Request_Client {
 		if ($follow_headers === NULL)
 			return $this->_follow_headers;
 
-		$this->_follow_headers = array_map('strtolower', $follow_headers);
+		$this->_follow_headers = array_map('strtolower', $follow_headers);//对数组的每一个值调用函数
 
 		return $this;
 	}
@@ -223,7 +223,7 @@ abstract class Kohana_Request_Client {
 	 * @param  bool  $strict_redirect  Boolean indicating if 302 redirects should be followed with the original method
 	 * @return Request_Client
 	 */
-	public function strict_redirect($strict_redirect = NULL)
+	public function strict_redirect($strict_redirect = NULL)//同上
 	{
 		if ($strict_redirect === NULL)
 			return $this->_strict_redirect;
@@ -252,7 +252,7 @@ abstract class Kohana_Request_Client {
 	 * @param array $header_callbacks	Array of callbacks to trigger on presence of given headers
 	 * @return Request_Client
 	 */
-	public function header_callbacks($header_callbacks = NULL)
+	public function header_callbacks($header_callbacks = NULL)//同上
 	{
 		if ($header_callbacks === NULL)
 			return $this->_header_callbacks;
@@ -273,7 +273,7 @@ abstract class Kohana_Request_Client {
 	 * @param int $depth  Maximum number of callback requests to execute before aborting
 	 * @return Request_Client|int
 	 */
-	public function max_callback_depth($depth = NULL)
+	public function max_callback_depth($depth = NULL)//同上
 	{
 		if ($depth === NULL)
 			return $this->_max_callback_depth;
@@ -290,7 +290,7 @@ abstract class Kohana_Request_Client {
 	 * @param int $depth  Current recursion depth
 	 * @return Request_Client|int
 	 */
-	public function callback_depth($depth = NULL)
+	public function callback_depth($depth = NULL)//同上
 	{
 		if ($depth === NULL)
 			return $this->_callback_depth;
@@ -322,7 +322,7 @@ abstract class Kohana_Request_Client {
 	 * @param mixed $value
 	 * @return Request_Client|mixed
 	 */
-	public function callback_params($param = NULL, $value = NULL)
+	public function callback_params($param = NULL, $value = NULL)//参数
 	{
 		// Getter for full array
 		if ($param === NULL)
@@ -354,7 +354,7 @@ abstract class Kohana_Request_Client {
 	 *
 	 * @param Request_Client $client
 	 */
-	public function assign_client_properties(Request_Client $client)
+	public function assign_client_properties(Request_Client $client)//或许是一个对象复制另一个对象的值
 	{
 		$client->cache($this->cache());
 		$client->follow($this->follow());
