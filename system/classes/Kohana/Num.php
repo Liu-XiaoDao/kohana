@@ -19,7 +19,7 @@ class Kohana_Num {
 	/**
 	 * @var  array  Valid byte units => power of 2 that defines the unit's size
 	 */
-	public static $byte_units = array
+	public static $byte_units = array  //存储单位是2的多少次方
 	(
 		'B'   => 0,
 		'K'   => 10,
