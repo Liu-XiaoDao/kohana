@@ -14,7 +14,7 @@ class Kohana_HTML {
 	/**
 	 * @var  array  preferred order of attributes
 	 */
-	public static $attribute_order = array
+	public static $attribute_order = array //属性顺序
 	(
 		'action',
 		'method',
@@ -49,12 +49,12 @@ class Kohana_HTML {
 	/**
 	 * @var  boolean  use strict XHTML mode?
 	 */
-	public static $strict = TRUE;
+	public static $strict = TRUE;//是否是严格的xhtml
 
 	/**
 	 * @var  boolean  automatically target external URLs to a new window?
 	 */
-	public static $windowed_urls = FALSE;
+	public static $windowed_urls = FALSE;//新连接是否打开一个新窗口
 
 	/**
 	 * Convert special characters to HTML entities. All untrusted content
@@ -68,7 +68,7 @@ class Kohana_HTML {
 	 */
 	public static function chars($value, $double_encode = TRUE)
 	{
-		return htmlspecialchars( (string) $value, ENT_QUOTES, Kohana::$charset, $double_encode);
+		return htmlspecialchars( (string) $value, ENT_QUOTES, Kohana::$charset, $double_encode);//输出html标签是保持标签不被解析
 	}
 
 	/**
@@ -82,7 +82,7 @@ class Kohana_HTML {
 	 * @param   boolean $double_encode  encode existing entities
 	 * @return  string
 	 */
-	public static function entities($value, $double_encode = TRUE)
+	public static function entities($value, $double_encode = TRUE)// 把符号转成html符号
 	{
 		return htmlentities( (string) $value, ENT_QUOTES, Kohana::$charset, $double_encode);
 	}
@@ -103,6 +103,7 @@ class Kohana_HTML {
 	 * @uses    URL::site
 	 * @uses    HTML::attributes
 	 */
+	//生成链接
 	public static function anchor($uri, $title = NULL, array $attributes = NULL, $protocol = NULL, $index = TRUE)
 	{
 		if ($title === NULL)
@@ -154,7 +155,7 @@ class Kohana_HTML {
 	 * @uses    URL::base
 	 * @uses    HTML::attributes
 	 */
-	public static function file_anchor($file, $title = NULL, array $attributes = NULL, $protocol = NULL, $index = FALSE)
+	public static function file_anchor($file, $title = NULL, array $attributes = NULL, $protocol = NULL, $index = FALSE)//文件链接
 	{
 		if ($title === NULL)
 		{
@@ -180,7 +181,7 @@ class Kohana_HTML {
 	 * @return  string
 	 * @uses    HTML::attributes
 	 */
-	public static function mailto($email, $title = NULL, array $attributes = NULL)
+	public static function mailto($email, $title = NULL, array $attributes = NULL)//发邮建链接
 	{
 		if ($title === NULL)
 		{
@@ -204,7 +205,7 @@ class Kohana_HTML {
 	 * @uses    URL::base
 	 * @uses    HTML::attributes
 	 */
-	public static function style($file, array $attributes = NULL, $protocol = NULL, $index = FALSE)
+	public static function style($file, array $attributes = NULL, $protocol = NULL, $index = FALSE)//引用样式
 	{
 		if (strpos($file, '://') === FALSE AND strpos($file, '//') !== 0)
 		{
@@ -237,7 +238,7 @@ class Kohana_HTML {
 	 * @uses    URL::base
 	 * @uses    HTML::attributes
 	 */
-	public static function script($file, array $attributes = NULL, $protocol = NULL, $index = FALSE)
+	public static function script($file, array $attributes = NULL, $protocol = NULL, $index = FALSE)//引用js
 	{
 		if (strpos($file, '://') === FALSE AND strpos($file, '//') !== 0)
 		{
@@ -267,7 +268,7 @@ class Kohana_HTML {
 	 * @uses    URL::base
 	 * @uses    HTML::attributes
 	 */
-	public static function image($file, array $attributes = NULL, $protocol = NULL, $index = FALSE)
+	public static function image($file, array $attributes = NULL, $protocol = NULL, $index = FALSE)//引用图片
 	{
 		if (strpos($file, '://') === FALSE)
 		{
@@ -290,7 +291,7 @@ class Kohana_HTML {
 	 * @param   array   $attributes attribute list
 	 * @return  string
 	 */
-	public static function attributes(array $attributes = NULL)
+	public static function attributes(array $attributes = NULL)///解析属性
 	{
 		if (empty($attributes))
 			return '';

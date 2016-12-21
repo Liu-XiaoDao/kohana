@@ -129,7 +129,7 @@ class Kohana_URL {
 	 * @return  string
 	 * @uses    URL::base
 	 */
-	public static function site($uri = '', $protocol = NULL, $index = TRUE)
+	public static function site($uri = '', $protocol = NULL, $index = TRUE)//使用链接
 	{
 		// Chop off possible scheme, host, port, user and pass parts
 		$path = preg_replace('~^[-a-z0-9+.]++://[^/]++/?~', '', trim($uri, '/'));
@@ -151,7 +151,7 @@ class Kohana_URL {
 	 * @param  array $matches  Array of matches from preg_replace_callback()
 	 * @return string          Encoded string
 	 */
-	protected static function _rawurlencode_callback($matches)
+	protected static function _rawurlencode_callback($matches)//url转成特殊编码
 	{
 		return rawurlencode($matches[0]);
 	}
@@ -172,7 +172,7 @@ class Kohana_URL {
 	 * @param   boolean  $use_get  Include current request GET parameters
 	 * @return  string
 	 */
-	public static function query(array $params = NULL, $use_get = TRUE)
+	public static function query(array $params = NULL, $use_get = TRUE)//查询字符串,分页应该就用到了
 	{
 		if ($use_get)
 		{
@@ -245,7 +245,7 @@ class Kohana_URL {
 	 * @param array $trusted_hosts
 	 * @return boolean TRUE if $host is trustworthy
 	 */
-	public static function is_trusted_host($host, array $trusted_hosts = NULL)
+	public static function is_trusted_host($host, array $trusted_hosts = NULL)//测试一个主机是否是安全的
 	{
 
 		// If list of trusted hosts is not directly provided read from config
